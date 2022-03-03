@@ -1,34 +1,50 @@
 /* 
  * File:   main.cpp
- * Author: Attila Koksal
- * Created on February 28, 2022, 1:33 PM
- * Purpose:  CPP Template 
- *           To be copied for each Assignment Problem
+ * Author: Annabelle Tamano
+ * Created on February 28, 2022, 4:13 PM
  */
 
 //System Libraries
-#include <iostream>  //I/O Library
+#include <iostream>
 using namespace std;
 
 //User Libraries
 
-//Global Constants
-//Math, Science, Universal, Conversions, High Dimensioned Arrays
+//Universal Constants 
 
 //Function Prototypes
+void prntTF(bool);
 
-//Execution Begins Here
+//Program Begins Here
 int main(int argc, char** argv) {
-    //Initialize the Random Number Seed
+    bool p[]={true, true, false, false};
+    bool q[]={true, false, true, false};
     
-    //Declare Variables
-    
-    //Initialize Variables
-    
-    //Map Inputs to Outputs -> Process
-    
-    //Display Inputs/Outputs
-    
-    //Exit the Program - Cleanup
+    cout<<"p q ~p ~q p&&q p||q p^q p^q^q p^q^p !(p&&q) !p||!q !(p||q) !p^!q"<<endl;
+    for(int i=0;i<4;i++) {
+        prntTF(p[i]);
+        prntTF(q[i]);               cout<<" ";
+        prntTF(!p[i]);              cout<<" ";
+        prntTF(!q[i]);              cout<<" ";
+        prntTF(p[i]&&q[i]);         cout<<"   ";
+        prntTF(p[i]||q[i]);         cout<<"   ";
+        prntTF(p[i]^q[i]);          cout<<"   ";
+        prntTF(p[i]^q[i]^q[i]);     cout<<"    ";
+        prntTF(p[i]^q[i]^p[i]);     cout<<"     ";
+        prntTF( !(p[i]&&q[i]) );    cout<<"      ";
+        prntTF( !p[i]||!q[i] );     cout<<"     ";
+        prntTF( !(p[i]||q[i]) );    cout<<"     ";
+        prntTF( !p[i]^!q[i] );
+        cout<<endl;
+    }
     return 0;
+}
+
+//Function Prints True(T) or False(F) depending on the statement given 
+void prntTF(bool statement) {
+    if(statement==true) {
+        cout <<"T ";
+    } else {
+        cout<<"F ";
+    }
 }
