@@ -1,34 +1,34 @@
 /* 
  * File:   main.cpp
  * Author: Attila Koksal
- * Created on February 28, 2022, 1:36 PM
- * Purpose:  CPP Template 
- *           To be copied for each Assignment Problem
+ * Created on March 2, 2022, 11:30 PM
  */
 
 //System Libraries
-#include <iostream>  //I/O Library
+#include <iostream>
 using namespace std;
 
 //User Libraries
 
-//Global Constants
-//Math, Science, Universal, Conversions, High Dimensioned Arrays
+//Universal Constants
 
 //Function Prototypes
 
 //Execution Begins Here
 int main(int argc, char** argv) {
-    //Initialize the Random Number Seed
     
-    //Declare Variables
+    bool p[] = {true, true, false, false};
+    bool q[] = {true, false, true, false};
     
-    //Initialize Variables
-    
-    //Map Inputs to Outputs -> Process
-    
-    //Display Inputs/Outputs
-    
-    //Exit the Program - Cleanup
+    cout<<"p  q   (p&&q)||~(p||q)   !(p^q)   (p||q)&&~(p&&q)   p^q"<<endl;
+    for(int i=0;i<4;i++) {
+        cout<<(p[i]?'T':'F')<<"  "<<(q[i]?'T':'F')<<"          "<<
+                ( ( p[i]&&q[i]||!(p[i]||q[i]) ) ?'T':'F')<<"            "<<
+                ( !(p[i]^q[i])?'T':'F')<<"             "<<
+                ( (p[i]||q[i])&&!(p[i]&&q[i]) ?'T':'F')<<"           "<<
+                ( p[i]^q[i]? 'T':'F')<<endl;
+                
+    }
     return 0;
 }
+
