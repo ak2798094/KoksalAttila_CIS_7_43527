@@ -148,28 +148,20 @@ bool validCC(char cc[]){
 }
 bool Luhn(char ccc[],int n,int last){
     int checkSum;
-        
-    // 1st step is done in the prepLun function
     
-//    // 2nd step
-    // Use a for loop used to swap each element in the array
     char temp;
     for(int i=0, j=n-1; i<=6; i++,j--){ 
         temp=ccc[i];
         ccc[i]=ccc[j];
         ccc[j]=temp;
-//        cout<<ccc[i];
     }
 
-    // 3rd step
-    // multiply every odd element and subtract 9 to all any result higher than 9
     int num;
     int sum=0;
     
     for(int i=0; i<=n-1 ;i++){
         
         num=cnvrt(ccc[i]);
-       
         
         if(i%2==0){
             num=num*2;
@@ -181,23 +173,18 @@ bool Luhn(char ccc[],int n,int last){
         }       
         
         ccc[i]=cnvrt(num);
-//        cout<<ccc[i]<<endl;
         sum+=num;
     }
-//    cout<<endl<<"Luhn Output step 3"<<endl;
-//    cout<<ccc<<endl;
-    
+
     //  last step   
     checkSum=sum%10;
-    // put the last steps here
-//    int count=0;
+
     bool credit=false;
     if(checkSum==last){
         credit==true;
         return true;
     }
     return false;
-//    cout<<count<<endl; 
     
 }
 void output(char cc[],int n){
@@ -228,7 +215,6 @@ void prpLuhn(char cc[],int n){
         cc[i]=rndDgit();
     }
 
-    //Put null terminator at the end
     for(int i=n;i<=n+1;i++){
         cc[i]='\0';
     }
