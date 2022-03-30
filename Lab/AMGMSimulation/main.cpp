@@ -13,6 +13,7 @@
 #include <ctime>      //Time Library
 #include <cmath>      //Math Library
 #include <iomanip>    //Format Library
+#include <math.h>
 using namespace std;  //STD Name-space where Library is compiled
 
 //User Libraries
@@ -56,13 +57,21 @@ int main(int argc, char** argv) {
 }
 
 float logAM(int a[],int n){
+    int sum = 0;
+    for(int i = 0; i < n; i++){
+        sum += a[i];
+    }
     
-    return 0;
+    return log(float(sum) / n);
 }
 
 float logGM(int a[],int n){
-
-    return 0;
+    float logSum = 0;
+    for(int i = 0; i < n; i++){
+        logSum += log(a[i]);
+    }
+    
+    return logSum / n;
 }
 
 void prntAry(int a[],int n,int perLine){
