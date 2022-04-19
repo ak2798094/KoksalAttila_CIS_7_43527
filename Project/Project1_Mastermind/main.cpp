@@ -1,8 +1,9 @@
-/* Mastermind by Michael Burdick
-* This is an extremely simple version of the popular game Mastermind, which involves the computer randomly generating a series of four "pegs", all either white or black.
-* The user then gets an alloted number of guesses to try and guess the series, referred to as the code. The only feedback the user recieves is two numbers: the number
-* of pegs they have perfectly correct, and the number of pegs that are the right color, but in the wrong spot.
-*/
+/* 
+ * File:   main.cpp
+ * Author: Attila Koksal
+ * Created on April 14, 2022, 2:38 PM
+ * Purpose:  Project 1 Mastermind
+ */
 
 #include <iostream>
 #include <string>
