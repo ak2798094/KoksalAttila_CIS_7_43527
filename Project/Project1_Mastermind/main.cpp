@@ -155,27 +155,27 @@ int main(int argc, char** argv){
             z++;//increment z
         }
 /////////////////////////////////////////////////////////////////////////////////////////
-        if(!correct){//if we ended up breaking out of the while loop due to running out of guesses, instead of by guessing correctly, print the loss statement
+        if(!correct){//if number of guesses is exceeded, the player loses
             cout << "You're all out of guesses! I win!" << endl;
-            cout << "My code was ";
-            for (int q = 0; q < 8; q++){//Also, we print out the code, to give users the catharsis of at least seeing the right code
+            cout << "The code was ";
+            for (int q = 0; q < 8; q++){//print the actual answer to the game
                     cout << answer[q];
             }
             cout << "!" << endl;
         }
 
-        cout << "Play again? (y/n) "; //Now that the game is complete, prompt the user to see if they want to play again
-        string repeatchoice = "";
-        cin >> repeatchoice;
+        cout << "Play again? (y/n) "; //ask the user if they want to play again after the game has concluded
+        string repeatagain = "";
+        cin >> repeatagain;
 
-        while(repeatchoice != "y" && repeatchoice != "Y" && repeatchoice != "n" && repeatchoice != "N"){//like all other user input, let's go ahead and validate this too
+        while(repeatagain != "y" && repeatagain != "Y" && repeatagain != "n" && repeatagain != "N"){//validate the user's given input
             cout << "Invalid input. Enter either 'y' or 'n': ";
-            cin >> repeatchoice;
+            cin >> repeatagain;
         }
 
-        if(repeatchoice == "n" || repeatchoice == "N"){
+        if(repeatagain == "n" || repeatagain == "N"){
             repeat = false;
-        }//if our player says they don't wanna play anymore, we reverse repeat so we can break our do-while loop. If they do wanna continue, we do nothing, and let the loop...well, loop.
-//
+        }//if user doesn't want to play again, the do-while loop breaks and if user does want to play again, just let the loop continue as it is
+
     }while(repeat);
 }
