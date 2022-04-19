@@ -29,8 +29,8 @@ int main(int argc, char** argv){
     cin >> choice;
 
     while (choice != "1" && choice != "2" && choice != "3"){//ask again if choice isn't valid
-            cout << "Invalid choice. Please enter a 1, 2, or 3: ";
-            cin >> choice;
+        cout << "Invalid choice. Please enter a 1, 2, or 3: ";
+        cin >> choice;
     }
 
     int guesses;
