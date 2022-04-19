@@ -93,7 +93,7 @@ int main(int argc, char** argv){
             cout << "You're all out of guesses! I win!" << endl;
             cout << "The code was ";
             for (int q = 0; q < 8; q++){//print the actual answer to the game
-                    cout << answer[q];
+                cout << answer[q];
             }
             cout << "!" << endl;
         }
