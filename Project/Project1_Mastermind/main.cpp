@@ -12,76 +12,11 @@
 
 using namespace std;
 
-bool validGuess (string guess){//determines if a player's guess is even
-    if(guess.length() != 8){//if player inputs a four character long guess, then don't accept it
-        return false;
-    }
-    for(int i = 0; i < 8; i++){//if guess has four letters, then go through the input and check if each letter is either a w, W, b, or B
-        if(toupper(guess[i]) != 'W' && toupper(guess[i]) != 'B'){
-            return false;//if input is wrong at all, then invalid guess
-        }
-    }
+bool validGuess(string);//determines if a player's guess is even
 
-    return true;//if true still, then valid guess from player
-	
-}
+string capitalize(string);//used to make every letter uppercase in an input string
 
-string capitalize(string s){//used to make every letter uppercase in an input string
-    for(int i = 0; i < s.length(); i++){
-            s[i] = toupper(s[i]);
-    }
-
-    return s;
-}
-
-bool hintCreator(string guess, char* answer, int numW, int numB){//creates the hints for the game and checks if user has guessed the correct combination
-    bool exact = true;//the assumption that the guess is in fact correct
-    int rightColorAndPlacement = 0;//keeps totals of # of pegs that are right color/right spot and right color/wrong spot to use in the hints section
-    int rightColorWrongSpot = 0;
-
-    int wrongWhiteGuessed = 0;
-    int wrongBlackGuessed = 0;//tracks the # of incorrectly-placed pegs that are white and black to use in the second hint
-    //
-    for(int i = 0; i < 8; i++){//for every letter of the given guess
-        if(guess[i] == answer[i]){//check to see if it matches with the corresponding peg in the given guess
-            rightColorAndPlacement++;//increment the number of perfectly right pegs
-            if(guess[i] == 'W'){//keeps track of if the perfectly correct peg is white or black and this comes into account when providing the second hint
-                numW--;
-            }
-            else if(guess[i]== 'B'){
-                numB--;
-            }
-        }
-        else{//if the peg in the given guess and the corresponding peg in the correct answer are not the same
-            exact = false;//if so, change the value of exact
-            if(guess[i] == 'W' ){//record an incorrect peg either white or black in the two counter variables below
-                wrongWhiteGuessed++;
-            }
-            else if(guess[i]== 'B' ){
-                wrongBlackGuessed++;
-            }
-        }
-    }
-	
-    if (wrongWhiteGuessed >= numW) {
-        rightColorWrongSpot += numW;
-    }
-    else {
-        rightColorWrongSpot += wrongWhiteGuessed;
-    }
-
-    if (wrongBlackGuessed >= numB) {
-        rightColorWrongSpot += numB;
-    }
-    else {
-        rightColorWrongSpot += wrongBlackGuessed;
-    }
-
-    cout << "You have " << rightColorAndPlacement << " pegs of the correct color and position." << endl;
-    cout << "You have " << rightColorWrongSpot << " pegs that are the right color, but in the wrong position." << endl << endl;
-
-    return exact;//returns if player guess is the exact answer
-}
+bool hintCreator(string, char*, int, int);//creates the hints for the game and checks if user has guessed the correct combination
 
 
 int main(int argc, char** argv){
@@ -177,4 +112,74 @@ int main(int argc, char** argv){
         }//if user doesn't want to play again, the do-while loop breaks and if user does want to play again, just let the loop continue as it is
 
     }while(repeat);
+}
+bool validGuess(string guess){//determines if a player's guess is even
+    if(guess.length() != 8){//if player inputs a four character long guess, then don't accept it
+        return false;
+    }
+    for(int i = 0; i < 8; i++){//if guess has four letters, then go through the input and check if each letter is either a w, W, b, or B
+        if(toupper(guess[i]) != 'W' && toupper(guess[i]) != 'B'){
+            return false;//if input is wrong at all, then invalid guess
+        }
+    }
+
+    return true;//if true still, then valid guess from player
+	
+}
+
+string capitalize(string s){//used to make every letter uppercase in an input string
+    for(int i = 0; i < s.length(); i++){
+            s[i] = toupper(s[i]);
+    }
+
+    return s;
+}
+
+bool hintCreator(string guess, char* answer, int numW, int numB){//creates the hints for the game and checks if user has guessed the correct combination
+    bool exact = true;//the assumption that the guess is in fact correct
+    int rightColorAndPlacement = 0;//keeps totals of # of pegs that are right color/right spot and right color/wrong spot to use in the hints section
+    int rightColorWrongSpot = 0;
+
+    int wrongWhiteGuessed = 0;
+    int wrongBlackGuessed = 0;//tracks the # of incorrectly-placed pegs that are white and black to use in the second hint
+    //
+    for(int i = 0; i < 8; i++){//for every letter of the given guess
+        if(guess[i] == answer[i]){//check to see if it matches with the corresponding peg in the given guess
+            rightColorAndPlacement++;//increment the number of perfectly right pegs
+            if(guess[i] == 'W'){//keeps track of if the perfectly correct peg is white or black and this comes into account when providing the second hint
+                numW--;
+            }
+            else if(guess[i]== 'B'){
+                numB--;
+            }
+        }
+        else{//if the peg in the given guess and the corresponding peg in the correct answer are not the same
+            exact = false;//if so, change the value of exact
+            if(guess[i] == 'W' ){//record an incorrect peg either white or black in the two counter variables below
+                wrongWhiteGuessed++;
+            }
+            else if(guess[i]== 'B' ){
+                wrongBlackGuessed++;
+            }
+        }
+    }
+	
+    if (wrongWhiteGuessed >= numW) {
+        rightColorWrongSpot += numW;
+    }
+    else {
+        rightColorWrongSpot += wrongWhiteGuessed;
+    }
+
+    if (wrongBlackGuessed >= numB) {
+        rightColorWrongSpot += numB;
+    }
+    else {
+        rightColorWrongSpot += wrongBlackGuessed;
+    }
+
+    cout << "You have " << rightColorAndPlacement << " pegs of the correct color and position." << endl;
+    cout << "You have " << rightColorWrongSpot << " pegs that are the right color, but in the wrong position." << endl << endl;
+
+    return exact;//returns if player guess is the exact answer
 }
