@@ -12,28 +12,28 @@
 
 using namespace std;
 
-bool validGuess (string guess){ //validGuess is a simple function which determines if a player's guess is even in the realm of possible answers
-    if(guess.length() != 8){//if the player inputted a guess that isn't four characters long, it's already wrong, so reject it
+bool validGuess (string guess){//determines if a player's guess is even
+    if(guess.length() != 8){//if player inputs a four character long guess, then don't accept it
         return false;
     }
-    for(int j = 0; j < 8; j++){//if the guess is four letters long, go through it letter by letter and make sure each letter is a w, W, b, or B
-        if(toupper(guess[j]) != 'W' && toupper(guess[j]) != 'B'){
-            return false;//if any letter of the guess isn't one of those four, the guess is invalid
+    for(int i = 0; i < 8; i++){//if guess has four letters, then go through the input and check if each letter is either a w, W, b, or B
+        if(toupper(guess[i]) != 'W' && toupper(guess[i]) != 'B'){
+            return false;//if input is wrong at all, then invalid guess
         }
     }
 
-    return true;//if we pass both of these checks, we have ourselves a valid guess from the player, so let the main method know
+    return true;//if true still, then valid guess from player
 	
 }
 
-string upperCaseifier(string s){//really simple function to make every letter of an input string uppercase
-	for(int x = 0; x < s.length(); x++){
-		s[x] = toupper(s[x]);
-	}
+string capitalize(string s){//used to make every letter uppercase in an input string
+    for(int i = 0; i < s.length(); i++){
+            s[i] = toupper(s[i]);
+    }
 
-	return s;
+    return s;
 }
-
+///////////////////////////////////////////////////////i am here
 bool hintGenerator(string guess, char* solution, int numW, int numB){//hintGenerator both creates the hints that the codebreaker will recieve, and also checks to see if the codebreaker has guessed the code
     bool exactlyAlike = true;//assume the guess is in fact correct until proven otherwise
     int rightColorAndPlacement = 0;//and also keep running totals of the number of pegs that are right color/right spot, and those that are right color/wrong spot, for use in the hints
@@ -63,14 +63,6 @@ bool hintGenerator(string guess, char* solution, int numW, int numB){//hintGener
 
 
     }
-
-	/* Now that we've fully iterated over the two codes, we have the exact number of perfect pegs in our player's guess. How, then, do we get the number of pegs which are of the right color, but wrong spot? 
-	* Simple. We compare the number of white and black pegs remaining unguessed in the code against the number of white and black pegs the player guessed that were not matches.
-	* If the number of incorrect pegs of color X is greater than or equal to the number of pegs of color X remaining in the solution, then we note that all remaining pegs of color X have been identified, if not
-	* properly placed. If the number of incorrect pegs of color X is less than the number of pegs of color X remaining in the solution, we only return the number of pegs of color X that the player managed to
-	* include in their solution.
-	*/
-
 	
     if (wrongWhiteGuessed >= numW) {
             rightColorWrongSpot += numW;
