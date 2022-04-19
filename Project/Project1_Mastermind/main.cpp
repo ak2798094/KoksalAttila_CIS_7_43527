@@ -33,55 +33,54 @@ string capitalize(string s){//used to make every letter uppercase in an input st
 
     return s;
 }
-///////////////////////////////////////////////////////i am here
-bool hintGenerator(string guess, char* answer, int numW, int numB){//hintGenerator both creates the hints that the codebreaker will recieve, and also checks to see if the codebreaker has guessed the code
-    bool exactlyAlike = true;//assume the guess is in fact correct until proven otherwise
-    int rightColorAndPlacement = 0;//and also keep running totals of the number of pegs that are right color/right spot, and those that are right color/wrong spot, for use in the hints
+
+bool hintCreator(string guess, char* answer, int numW, int numB){//creates the hints for the game and checks if user has guessed the correct combination
+    bool exact = true;//the assumption that the guess is in fact correct
+    int rightColorAndPlacement = 0;//keeps totals of # of pegs that are right color/right spot and right color/wrong spot to use in the hints section
     int rightColorWrongSpot = 0;
 
     int wrongWhiteGuessed = 0;
-    int wrongBlackGuessed = 0;//these counter variables will track the number of incorrectly-placed pegs that are white and black, for use in the second hint
-    for(int i = 0; i < 8; i++){//for every letter of the guess
-            if(guess[i] == answer[i]){//check to see if it matches with the corresponding peg in the code. If it does
-                    rightColorAndPlacement++;//increment the number of perfectly right pegs by one
-                    if(guess[i] == 'W'){//We also need to keep track of if the perfectly correct peg is white or black. This comes into play to provide the second hint
-                            numW--;
-                    }
-                    else if(guess[i]== 'B'){
-                            numB--;
-                    }
+    int wrongBlackGuessed = 0;//tracks the # of incorrectly-placed pegs that are white and black to use in the second hint
+    //
+    for(int i = 0; i < 8; i++){//for every letter of the given guess
+        if(guess[i] == answer[i]){//check to see if it matches with the corresponding peg in the given guess
+            rightColorAndPlacement++;//increment the number of perfectly right pegs
+            if(guess[i] == 'W'){//keeps track of if the perfectly correct peg is white or black and this comes into account when providing the second hint
+                numW--;
             }
-            else{//if the peg in the guess and the corresponding peg in the code are not the same
-                    exactlyAlike = false;//then we have found a contradiction to the two codes being the same, and change exactlyAlike to reflect that
-                    if(guess[i] == 'W' ){//then, we record that we have an incorrect peg that is either white or black in our two counter variables
-                            wrongWhiteGuessed++;
-                    }
-                    else if(guess[i]== 'B' ){
-                            wrongBlackGuessed++;
-                    }
+            else if(guess[i]== 'B'){
+                numB--;
             }
-
-
+        }
+        else{//if the peg in the given guess and the corresponding peg in the correct answer are not the same
+            exact = false;//if so, change the value of exact
+            if(guess[i] == 'W' ){//record an incorrect peg either white or black in the two counter variables below
+                wrongWhiteGuessed++;
+            }
+            else if(guess[i]== 'B' ){
+                wrongBlackGuessed++;
+            }
+        }
     }
 	
     if (wrongWhiteGuessed >= numW) {
-            rightColorWrongSpot += numW;
+        rightColorWrongSpot += numW;
     }
     else {
-            rightColorWrongSpot += wrongWhiteGuessed;
+        rightColorWrongSpot += wrongWhiteGuessed;
     }
 
     if (wrongBlackGuessed >= numB) {
-            rightColorWrongSpot += numB;
+        rightColorWrongSpot += numB;
     }
     else {
-            rightColorWrongSpot += wrongBlackGuessed;
+        rightColorWrongSpot += wrongBlackGuessed;
     }
 
     cout << "You have " << rightColorAndPlacement << " pegs of the correct color and position." << endl;
     cout << "You have " << rightColorWrongSpot << " pegs that are the right color, but in the wrong position." << endl << endl;
-//////////////////////here to below is done
-    return exactlyAlike;//returns if player guess is eact answer
+
+    return exact;//returns if player guess is the exact answer
 }
 
 
@@ -143,7 +142,7 @@ int main(int argc, char** argv){
                 cin >> guess;
             }
 
-            correct = hintGenerator(capitalize(guess), answer, numWhite, numBlack);//create hints for the given guess and determine if guessed correctly
+            correct = hintCreator(capitalize(guess), answer, numWhite, numBlack);//create hints for the given guess and determine if guessed correctly
 
             if(correct){//if user is correct, they win the game
                 cout << "Congratulations, you win!" << endl;
