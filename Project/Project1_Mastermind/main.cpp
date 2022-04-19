@@ -34,7 +34,7 @@ string capitalize(string s){//used to make every letter uppercase in an input st
     return s;
 }
 ///////////////////////////////////////////////////////i am here
-bool hintGenerator(string guess, char* solution, int numW, int numB){//hintGenerator both creates the hints that the codebreaker will recieve, and also checks to see if the codebreaker has guessed the code
+bool hintGenerator(string guess, char* answer, int numW, int numB){//hintGenerator both creates the hints that the codebreaker will recieve, and also checks to see if the codebreaker has guessed the code
     bool exactlyAlike = true;//assume the guess is in fact correct until proven otherwise
     int rightColorAndPlacement = 0;//and also keep running totals of the number of pegs that are right color/right spot, and those that are right color/wrong spot, for use in the hints
     int rightColorWrongSpot = 0;
@@ -42,7 +42,7 @@ bool hintGenerator(string guess, char* solution, int numW, int numB){//hintGener
     int wrongWhiteGuessed = 0;
     int wrongBlackGuessed = 0;//these counter variables will track the number of incorrectly-placed pegs that are white and black, for use in the second hint
     for(int i = 0; i < 8; i++){//for every letter of the guess
-            if(guess[i] == solution[i]){//check to see if it matches with the corresponding peg in the code. If it does
+            if(guess[i] == answer[i]){//check to see if it matches with the corresponding peg in the code. If it does
                     rightColorAndPlacement++;//increment the number of perfectly right pegs by one
                     if(guess[i] == 'W'){//We also need to keep track of if the perfectly correct peg is white or black. This comes into play to provide the second hint
                             numW--;
@@ -78,10 +78,10 @@ bool hintGenerator(string guess, char* solution, int numW, int numB){//hintGener
             rightColorWrongSpot += wrongBlackGuessed;
     }
 
-    cout << "You have " << rightColorAndPlacement << " pegs of the correct color and position." << endl;//Then we produce our two hints for the player
+    cout << "You have " << rightColorAndPlacement << " pegs of the correct color and position." << endl;
     cout << "You have " << rightColorWrongSpot << " pegs that are the right color, but in the wrong position." << endl << endl;
-
-    return exactlyAlike;//and return whether or not their guess was spot-on
+//////////////////////here to below is done
+    return exactlyAlike;//returns if player guess is eact answer
 }
 
 
@@ -91,10 +91,10 @@ int main(int argc, char** argv){
     cout << "Welcome to Mastermind." << endl;
 
     cout << "Please select a difficulty level:" << endl;
-    cout << "1 = Easy. 2 = Medium. 3 = Hard." << endl;//We greet the player, then prompt them to select a difficulty
+    cout << "1 = Easy. 2 = Medium. 3 = Hard." << endl;//Select a difficulty
     cin >> choice;
 
-    while (choice != "1" && choice != "2" && choice != "3"){//if the choice that they select isn't a valid one, then we slap them on the wrist and ask again
+    while (choice != "1" && choice != "2" && choice != "3"){//ask again if choice isn't valid
             cout << "Invalid choice. Please enter a 1, 2, or 3: ";
             cin >> choice;
     }
@@ -111,23 +111,23 @@ int main(int argc, char** argv){
     else{
             guesses = 8;
             cout << "Hard selected!" << endl;
-    }//The difficulty chosen determines the number of guesses the codebreaker has. We also acknowledge what difficulty option the player selected
+    }//the difficulty level decides how many guesses the player gets
 
-    char solution [8];//Now we're hitting the game itself. First we initialize a solution character array of length 4
-    bool repeat = true;//we also set up repeat, which will determine for how long players want to keep playing the game
-    do{	//I'm using a do-while loop here to contain the game, since I know players will want to play at least once.
+    char answer [8];//initialize a character array of length 4
+    bool repeat = true;//determine how long player wants to play the game
+    do{
         int numBlack = 0;
         int numWhite = 0;//Set up counter variables to hold the number of black pegs and white pegs in the solution.
         srand(time(0));//Also, seed our random number generator using the time.
 
         for (int i = 0; i < 8; i++){//for every character in our code
             if(rand() % 2 == 0){//generate a random number, then determine if it's odd or even
-                    solution[i] = 'W';//using that data, we randomly assign every peg in the solution array to be white or black
-                    numWhite++;//we also adjust our counter variables accordingly
+                answer[i] = 'W';//using that data, we randomly assign every peg in the solution array to be white or black
+                numWhite++;//we also adjust our counter variables accordingly
             }
             else{
-                    solution[i] = 'B';
-                    numBlack++;
+                answer[i] = 'B';
+                numBlack++;
             }
         }
 
@@ -144,7 +144,7 @@ int main(int argc, char** argv){
                 cin >> guess;
             }
 
-            correct = hintGenerator(upperCaseifier(guess), solution, numWhite, numBlack);//now, take an all-uppercase version of the guess, the codemaker's code, and the total white and black pegs in the code
+            correct = hintGenerator(capitalize(guess), answer, numWhite, numBlack);//now, take an all-uppercase version of the guess, the codemaker's code, and the total white and black pegs in the code
             //and run them through hintGenerator to create the hints, and also to determine if the codebreaker has successfully broken the code
 
             if(correct){//If they're right, then go ahead and tell them they one
@@ -161,7 +161,7 @@ int main(int argc, char** argv){
             cout << "You're all out of guesses! I win!" << endl;
             cout << "My code was ";
             for (int q = 0; q < 8; q++){//Also, we print out the code, to give users the catharsis of at least seeing the right code
-                    cout << solution[q];
+                    cout << answer[q];
             }
             cout << "!" << endl;
         }
