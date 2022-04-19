@@ -154,7 +154,7 @@ int main(int argc, char** argv){
 
             z++;//increment z
         }
-/////////////////////////////////////////////////////////////////////////////////////////
+        
         if(!correct){//if number of guesses is exceeded, the player loses
             cout << "You're all out of guesses! I win!" << endl;
             cout << "The code was ";
