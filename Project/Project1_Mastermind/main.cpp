@@ -35,16 +35,16 @@ int main(int argc, char** argv){
 
     int guesses;
     if (choice == "1"){
-            guesses = 12;
-            cout << "Easy selected!" << endl;
+        guesses = 12;
+        cout << "Easy selected!" << endl;
     }
     else if (choice == "2"){
-            guesses = 10;
-            cout << "Medium selected!" << endl;
+        guesses = 10;
+        cout << "Medium selected!" << endl;
     }
     else{
-            guesses = 8;
-            cout << "Hard selected!" << endl;
+        guesses = 8;
+        cout << "Hard selected!" << endl;
     }//the difficulty level decides how many guesses the player gets
 
     char answer [8];//initialize a character array of length 4
