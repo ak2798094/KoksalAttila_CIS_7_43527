@@ -1,7 +1,7 @@
 /* 
  * File:   main.cpp
  * Author: Attila Koksal
- * Purpose:  Modification
+ * Purpose:  Hashing
  * Created on: April 29, 2022, 3:00 PM
  */
 
