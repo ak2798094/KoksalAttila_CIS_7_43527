@@ -16,9 +16,8 @@
 */
 
 
-#ifndef INCLUDE_GENERALHASHFUNCTION_CPP_H
-#define INCLUDE_GENERALHASHFUNCTION_CPP_H
-
+#ifndef GENERALHASHFUNCTIONS_H
+#define GENERALHASHFUNCTIONS_H
 
 #include <string>
 
@@ -39,4 +38,5 @@ unsigned int FNVHash (const std::string& str);
 unsigned int APHash  (const std::string& str);
 
 
-#endif
+#endif /* GENERALHASHFUNCTIONS_H */
+
