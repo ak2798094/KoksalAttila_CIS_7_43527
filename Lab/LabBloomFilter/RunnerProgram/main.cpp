@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: Attila Koksal
  * Created on May 17, 2022, 5:35 PM
- * Purpose:  Demonstrate Bloom Filter
+ * Purpose:  Bloom Filter Demonstration
  */
 
 //System Level Libraries
