@@ -13,9 +13,9 @@
 using namespace std;
 
 //Function Prototypes
-string AI(char,char);
-bool eval(string,string,char &,char &);
-string set();
+string compAI(char,char);
+bool calculate(string,string,char &,char &);
+string solution();
 
 int main(int argc, char** argv) {
     //Set random number seed generator
@@ -23,35 +23,36 @@ int main(int argc, char** argv) {
     
     //Declare variables
     string code,guess;  //code breaker and holds the current guess
-    char rr,rw;         //right digit in correct place and right digit in incorrect place
-    int nGuess;         //number of guesses
+    char correct,wrong; //right digit in correct place and right digit in incorrect place
+    int numGuess;         //number of guesses
     
     //Initialize Values
-    nGuess=0;
+    numGuess=0;
     code=set();
-    rr=rw=0;
+    correct=0;
+    wrong=0;
     
     //Loop until code is solved and keep track of the number of guesses used to find the final solution
     do{
-       nGuess++;
-       guess=AI(rr,rw);
-    }while(eval(code,guess,rr,rw)&&nGuess<100);
+       numGuess++;
+       guess=compAI(correct,wrong);
+    }while(calculate(code,guess,correct,wrong)&&numGuess<100);
 
     //Exit the program
     return 0;
 }
 
-string AI(char rr,char rw){
-    static const int ARRSIZE = 10;
-    static const int GSIZE   = 4;
+string compAI(char correct,char wrong){
+    static const int arrSize = 10;
+    static const int gSize = 4;
     
     static bool firstTime = true;
-    static bool allFour   = false;
-    static bool aiFirst   = true;
-    static bool foundFir  = false;
-    static bool foundSec  = false;
-    static bool foundThr  = false;
-    static bool foundFou  = false;
+    static bool allFour = false;
+    static bool aiFirst = true;
+    static bool foundFir = false;
+    static bool foundSec = false;
+    static bool foundThr = false;
+    static bool foundFou = false;
     
     static char cArray[] = {0,0,0,0,0,0,0,0,0,0};
     static char cGuess[] = {0,0,0,0};//Holds the correct digit out of order
@@ -68,7 +69,7 @@ string AI(char rr,char rw){
     
     
     // Determine which values are correct
-    if(index <= ARRSIZE && !allFour){
+    if(index <= arrSize && !allFour){
         
         if(firstTime){
             sGuess = "0000";
@@ -79,16 +80,16 @@ string AI(char rr,char rw){
 
         else if(!firstTime){
             // Check previous value to see if its one of the numbers
-            // if rr is not equal to 0, then the previous value is correct
-            if(rr!=0){
-                cArray[index-1]=rr;
+            // if correct is not equal to 0, then the previous value is correct
+            if(correct!=0){
+                cArray[index-1]=correct;
             }
             
-            for(int i=0;i<ARRSIZE;i++){
+            for(int i=0;i<arrSize;i++){
                 sum += (int)cArray[i];
             }
             if(sum!=4){
-                for(int i=0;i<GSIZE;i++){
+                for(int i=0;i<gSize;i++){
                     sGuess[i] = index + '0';
                 }
             }
@@ -99,7 +100,7 @@ string AI(char rr,char rw){
         }
         
         if(allFour){
-            for(int i=0;i<ARRSIZE;i++){
+            for(int i=0;i<arrSize;i++){
                 if(cArray[i]!=0){
                     for(int j=0;j<(int)cArray[i];j++){
                         cGuess[n++]= i;
@@ -122,7 +123,7 @@ string AI(char rr,char rw){
         else if(aiFirst==false){
             
             if(foundFir==false){
-                if(rr==1){
+                if(correct==1){
                     //Keep the first digit in the first position of cCode
                     cCode[m]=cGuess[n++] + '0';
 
@@ -135,7 +136,7 @@ string AI(char rr,char rw){
                     }
                     sGuess[p] = cGuess[n] + '0';
                 }
-                else if(rr==0){
+                else if(correct==0){
                     m++;
                     sGuess[++p]=cGuess[n] + '0';
                 }
@@ -143,7 +144,7 @@ string AI(char rr,char rw){
             
             else if(foundFir==true && foundSec==false){
                 //After finding the first digit, find the second digit
-                if(rr==1){
+                if(correct==1){
                     cCode[m++]=cGuess[n++] + '0';
 
                     foundSec = true;
@@ -159,7 +160,7 @@ string AI(char rr,char rw){
                     sGuess[p] = cGuess[n] + '0';
                 }
                 
-                else if (rr==0){
+                else if (correct==0){
                     if(cCode[m+1]=='x'){
                         sGuess[++p]= cGuess[n] + '0';
                         
@@ -174,7 +175,7 @@ string AI(char rr,char rw){
             }
             
             else if(foundFir==true && foundSec==true && foundThr==false){
-                if(rr==1){
+                if(correct==1){
                     cCode[m++]=cGuess[n++] + '0';
                     
                     foundThr=true;
@@ -193,7 +194,7 @@ string AI(char rr,char rw){
                     sGuess[p] = cGuess[n] + '0';
                 }
                 
-                else if(rr==0){
+                else if(correct==0){
                     if(cCode[m+1]=='x'){
                         m++;
                         p++;
@@ -211,7 +212,7 @@ string AI(char rr,char rw){
                 }
                 if(foundThr==true){
                     //Find the last digit by finding the position that's not found within cCode
-                    for(int i=0;i<GSIZE;i++){
+                    for(int i=0;i<gSize;i++){
                         if(cCode[i]=='x'){
                             cCode[i] = cGuess[n] + '0';
                             sGuess = cCode;
@@ -225,13 +226,13 @@ string AI(char rr,char rw){
     return sGuess;
 }
 
-bool eval(string code,string guess,char &rr,char &rw){
+bool calculate(string code,string guess,char &correct,char &wrong){
     string check="    ";
-    rr=0,rw=0;
+    correct=0,wrong=0;
     //Check how many digits are in the correct place
     for(int i=0;i<code.length();i++){
         if(code[i]==guess[i]){
-            rr++;
+            correct++;
             check[i]='x';
             guess[i]='x';
         }
@@ -240,7 +241,7 @@ bool eval(string code,string guess,char &rr,char &rw){
     for(int j=0;j<code.length();j++){
         for(int i=0;i<code.length();i++){
             if((i!=j)&&(code[i]==guess[j])&&(check[i]==' ')){
-                rw++;
+                wrong++;
                 check[i]='x';
                 break;
             }
@@ -248,11 +249,11 @@ bool eval(string code,string guess,char &rr,char &rw){
     }
     
     //Is the code broken or not
-    if(rr==4)return false;
+    if(correct==4)return false;
     return true;
 }
 
-string set(){
+string solution(){
     string code="0000";
     for(int i=0;i<code.length();i++){
         code[i]=rand()%10+'0';
