@@ -18,12 +18,12 @@ bool eval(string,string,char &,char &);
 string set();
 
 int main(int argc, char** argv) {
-    //Set the random number seed
+    //Set random number seed generator
     srand(static_cast<unsigned int>(time(0)));
     
     //Declare variables
-    string code,guess;  //code to break, and current guess
-    char rr,rw;         //right digit in right place vs. wrong place
+    string code,guess;  //code breaker and holds the current guess
+    char rr,rw;         //right digit in correct place and right digit in incorrect place
     int nGuess;         //number of guesses
     
     //Initialize Values
@@ -31,13 +31,13 @@ int main(int argc, char** argv) {
     code=set();
     rr=rw=0;
     
-    //Loop until solved and count to find solution
+    //Loop until code is solved and keep track of the number of guesses used to find the final solution
     do{
        nGuess++;
        guess=AI(rr,rw);
     }while(eval(code,guess,rr,rw)&&nGuess<100);
     
-    //Output the solution
+    //Outputs solution
     cout<<"Number of guesses with AI = "<<nGuess<<endl;
     cout<<code<<"="<<guess<<endl;
 
@@ -58,12 +58,12 @@ string AI(char rr,char rw){
     static bool foundFou  = false;
     
     static char cArray[] = {0,0,0,0,0,0,0,0,0,0};
-    static char cGuess[] = {0,0,0,0};// Will hold the correct digit, not in order
+    static char cGuess[] = {0,0,0,0};//Holds the correct digit out of order
     
     static int index = 0;
-    static char n = 0;//Index for cGuess
-    static char m = 0;//Index for cCode
-    static char p = 0;//Index for sGuess
+    static char n = 0;//cGuess Index
+    static char m = 0;//cCode Index
+    static char p = 0;//sGuess Index
     
     int sum = 0;
     
@@ -71,7 +71,7 @@ string AI(char rr,char rw){
     static string cCode = "xxxx";
     
     
-    // We need to find which vals are correct
+    // Determine which values are correct
     if(index <= ARRSIZE && !allFour){
         
         if(firstTime){
@@ -82,8 +82,8 @@ string AI(char rr,char rw){
         }
 
         else if(!firstTime){
-            // Check if previous val was one of the numbers,
-            // if rr != 0 then we know that the prev val is correct
+            // Check previous value to see if its one of the numbers
+            // if rr is not equal to 0, then the previous value is correct
             if(rr!=0){
                 cArray[index-1]=rr;
             }
