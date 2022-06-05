@@ -48,11 +48,11 @@ string compAI(char correct,char wrong){
     
     static bool firstTime = true;
     static bool allFour = false;
-    static bool aiFirst = true;
-    static bool foundFir = false;
-    static bool foundSec = false;
-    static bool foundThr = false;
-    static bool foundFou = false;
+    static bool firstAI = true;
+    static bool firstFind = false;
+    static bool secondFind = false;
+    static bool thirdFind = false;
+    static bool allFind = false;
     
     static char cArray[] = {0,0,0,0,0,0,0,0,0,0};
     static char cGuess[] = {0,0,0,0};//Holds the correct digit out of order
@@ -110,24 +110,24 @@ string compAI(char correct,char wrong){
         }
     }
     else{
-        if(aiFirst){
+        if(firstAI){
             n=0;
             m=0;
             p=0;
             //Find the first number
             //Set the first index of cGuess to the first index of sGuess
             sGuess[p] = cGuess[n]  + '0';
-            aiFirst=false;
+            firstAI=false;
         }
         
-        else if(aiFirst==false){
+        else if(firstAI==false){
             
-            if(foundFir==false){
+            if(firstFind==false){
                 if(correct==1){
                     //Keep the first digit in the first position of cCode
                     cCode[m]=cGuess[n++] + '0';
 
-                    foundFir = true;
+                    firstFind = true;
                     if(cCode[0]=='x'){
                         m=p=0;
                     }
@@ -142,12 +142,12 @@ string compAI(char correct,char wrong){
                 }
             }
             
-            else if(foundFir==true && foundSec==false){
+            else if(firstFind==true && secondFind==false){
                 //After finding the first digit, find the second digit
                 if(correct==1){
                     cCode[m++]=cGuess[n++] + '0';
 
-                    foundSec = true;
+                    secondFind = true;
                     if(cCode[0]=='x'){
                         m=p=0;
                     }
@@ -174,11 +174,11 @@ string compAI(char correct,char wrong){
                 }
             }
             
-            else if(foundFir==true && foundSec==true && foundThr==false){
+            else if(firstFind==true && secondFind==true && thirdFind==false){
                 if(correct==1){
                     cCode[m++]=cGuess[n++] + '0';
                     
-                    foundThr=true;
+                    thirdFind=true;
                     if(cCode[0]=='x'){
                         m=p=0;
                     }
@@ -210,7 +210,7 @@ string compAI(char correct,char wrong){
                     }
                     sGuess[p]=cGuess[n] + '0';
                 }
-                if(foundThr==true){
+                if(thirdFind==true){
                     //Find the last digit by finding the position that's not found within cCode
                     for(int i=0;i<gSize;i++){
                         if(cCode[i]=='x'){
