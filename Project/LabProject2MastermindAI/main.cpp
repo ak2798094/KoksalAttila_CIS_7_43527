@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
     //Declare variables
     string code,guess;  //code breaker and holds the current guess
     char correct,wrong; //right digit in correct place and right digit in incorrect place
-    int numGuess;         //number of guesses
+    int numGuess;       //number of guesses
     
     //Initialize Values
     numGuess=0;
