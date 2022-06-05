@@ -36,10 +36,6 @@ int main(int argc, char** argv) {
        nGuess++;
        guess=AI(rr,rw);
     }while(eval(code,guess,rr,rw)&&nGuess<100);
-    
-    //Outputs solution
-    cout<<"Number of guesses with AI = "<<nGuess<<endl;
-    cout<<code<<"="<<guess<<endl;
 
     //Exit the program
     return 0;
@@ -117,8 +113,8 @@ string AI(char rr,char rw){
             n=0;
             m=0;
             p=0;
-            // Find first number
-            // Set first index in cGuess into first index in sGuess
+            //Find the first number
+            //Set the first index of cGuess to the first index of sGuess
             sGuess[p] = cGuess[n]  + '0';
             aiFirst=false;
         }
@@ -127,7 +123,7 @@ string AI(char rr,char rw){
             
             if(foundFir==false){
                 if(rr==1){
-                    // Store first digit in first pos in cCode
+                    //Keep the first digit in the first position of cCode
                     cCode[m]=cGuess[n++] + '0';
 
                     foundFir = true;
@@ -146,7 +142,7 @@ string AI(char rr,char rw){
             }
             
             else if(foundFir==true && foundSec==false){
-                // Find the second digit since first digit was found
+                //After finding the first digit, find the second digit
                 if(rr==1){
                     cCode[m++]=cGuess[n++] + '0';
 
@@ -214,8 +210,7 @@ string AI(char rr,char rw){
                     sGuess[p]=cGuess[n] + '0';
                 }
                 if(foundThr==true){
-                    // We now can find the last digit. We just need to find the
-                    // position that is not found within cCode
+                    //Find the last digit by finding the position that's not found within cCode
                     for(int i=0;i<GSIZE;i++){
                         if(cCode[i]=='x'){
                             cCode[i] = cGuess[n] + '0';
@@ -233,7 +228,7 @@ string AI(char rr,char rw){
 bool eval(string code,string guess,char &rr,char &rw){
     string check="    ";
     rr=0,rw=0;
-    //Check how many are right place
+    //Check how many digits are in the correct place
     for(int i=0;i<code.length();i++){
         if(code[i]==guess[i]){
             rr++;
@@ -241,7 +236,7 @@ bool eval(string code,string guess,char &rr,char &rw){
             guess[i]='x';
         }
     }
-    //Check how many are wrong place
+    //Check how many digits are in the incorrect place
     for(int j=0;j<code.length();j++){
         for(int i=0;i<code.length();i++){
             if((i!=j)&&(code[i]==guess[j])&&(check[i]==' ')){
@@ -252,7 +247,7 @@ bool eval(string code,string guess,char &rr,char &rw){
         }
     }
     
-    //Found or not
+    //Is the code broken or not
     if(rr==4)return false;
     return true;
 }
