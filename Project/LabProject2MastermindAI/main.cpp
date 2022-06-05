@@ -125,7 +125,7 @@ string compAI(char correct,char wrong){
             if(firstFind==false){
                 if(correct==1){
                     //Keep the first digit in the first position of solution
-                    solution[m]=rightGuess[index1++] + '0';
+                    solution[index2]=rightGuess[index1++] + '0';
 
                     firstFind = true;
                     if(solution[0]=='x'){
@@ -195,15 +195,15 @@ string compAI(char correct,char wrong){
                 }
                 
                 else if(correct==0){
-                    if(solution[m+1]=='x'){
+                    if(solution[index2+1]=='x'){
                         index2++;
                         index3++;
                     }
-                    else if(solution[m+1]!='x' && solution[m+2]=='x'){
+                    else if(solution[index2+1]!='x' && solution[index2+2]=='x'){
                         index2+=2;
                         index3+=2;
                     }
-                    else if(solution[m+1]!='x' && solution[m+2]!='x' && solution[m+3]=='x'){
+                    else if(solution[index2+1]!='x' && solution[index2+2]!='x' && solution[index2+3]=='x'){
                         index2+=3;
                         index3+=3;
                         
