@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     
     //Initialize Values
     numGuess=0;
-    code=set();
+    code=solution();
     correct=0;
     wrong=0;
     
@@ -54,25 +54,25 @@ string compAI(char correct,char wrong){
     static bool thirdFind = false;
     static bool allFind = false;
     
-    static char cArray[] = {0,0,0,0,0,0,0,0,0,0};
-    static char cGuess[] = {0,0,0,0};//Holds the correct digit out of order
+    static char rightArray[] = {0,0,0,0,0,0,0,0,0,0};
+    static char rightGuess[] = {0,0,0,0};//Holds the correct digit out of order
     
     static int index = 0;
-    static char n = 0;//cGuess Index
-    static char m = 0;//cCode Index
-    static char p = 0;//sGuess Index
+    static char index1 = 0;//rightGuess Index
+    static char index2 = 0;//solution Index
+    static char index3 = 0;//userGuess Index
     
     int sum = 0;
     
-    string sGuess = "xxxx";
-    static string cCode = "xxxx";
+    string userGuess = "xxxx";
+    static string solution = "xxxx";
     
     
     // Determine which values are correct
     if(index <= arrSize && !allFour){
         
         if(firstTime){
-            sGuess = "0000";
+            userGuess = "0000";
             index++;
 
             firstTime = false;
@@ -82,15 +82,15 @@ string compAI(char correct,char wrong){
             // Check previous value to see if its one of the numbers
             // if correct is not equal to 0, then the previous value is correct
             if(correct!=0){
-                cArray[index-1]=correct;
+                rightArray[index-1]=correct;
             }
             
             for(int i=0;i<arrSize;i++){
-                sum += (int)cArray[i];
+                sum += (int)rightArray[i];
             }
             if(sum!=4){
                 for(int i=0;i<gSize;i++){
-                    sGuess[i] = index + '0';
+                    userGuess[i] = index + '0';
                 }
             }
             else if(sum==4){
@@ -101,9 +101,9 @@ string compAI(char correct,char wrong){
         
         if(allFour){
             for(int i=0;i<arrSize;i++){
-                if(cArray[i]!=0){
-                    for(int j=0;j<(int)cArray[i];j++){
-                        cGuess[n++]= i;
+                if(rightArray[i]!=0){
+                    for(int j=0;j<(int)rightArray[i];j++){
+                        rightGuess[index1++]= i;
                     }
                 }
             }
@@ -111,12 +111,12 @@ string compAI(char correct,char wrong){
     }
     else{
         if(firstAI){
-            n=0;
-            m=0;
-            p=0;
+            index1=0;
+            index2=0;
+            index3=0;
             //Find the first number
-            //Set the first index of cGuess to the first index of sGuess
-            sGuess[p] = cGuess[n]  + '0';
+            //Set the first index of rightGuess to the first index of userGuess
+            userGuess[index3] = rightGuess[index1]  + '0';
             firstAI=false;
         }
         
@@ -124,98 +124,98 @@ string compAI(char correct,char wrong){
             
             if(firstFind==false){
                 if(correct==1){
-                    //Keep the first digit in the first position of cCode
-                    cCode[m]=cGuess[n++] + '0';
+                    //Keep the first digit in the first position of solution
+                    solution[m]=rightGuess[index1++] + '0';
 
                     firstFind = true;
-                    if(cCode[0]=='x'){
-                        m=p=0;
+                    if(solution[0]=='x'){
+                        index2=index3=0;
                     }
-                    else if(cCode[0]!='x'){
-                        m=p=1;
+                    else if(solution[0]!='x'){
+                        index2=index3=1;
                     }
-                    sGuess[p] = cGuess[n] + '0';
+                    userGuess[index3] = rightGuess[index1] + '0';
                 }
                 else if(correct==0){
-                    m++;
-                    sGuess[++p]=cGuess[n] + '0';
+                    index2++;
+                    userGuess[++index3]=rightGuess[index1] + '0';
                 }
             }
             
             else if(firstFind==true && secondFind==false){
                 //After finding the first digit, find the second digit
                 if(correct==1){
-                    cCode[m++]=cGuess[n++] + '0';
+                    solution[index2++]=rightGuess[index1++] + '0';
 
                     secondFind = true;
-                    if(cCode[0]=='x'){
-                        m=p=0;
+                    if(solution[0]=='x'){
+                        index2=index3=0;
                     }
-                    else if(cCode[0]!='x' && cCode[1]=='x'){
-                        m=p=1;
+                    else if(solution[0]!='x' && solution[1]=='x'){
+                        index2=index3=1;
                     }
-                    else if(cCode[0]!='x' && cCode[1]!='x' && cCode[2]=='x'){
-                        m=p=2;
+                    else if(solution[0]!='x' && solution[1]!='x' && solution[2]=='x'){
+                        index2=index3=2;
                     }
-                    sGuess[p] = cGuess[n] + '0';
+                    userGuess[index3] = rightGuess[index1] + '0';
                 }
                 
                 else if (correct==0){
-                    if(cCode[m+1]=='x'){
-                        sGuess[++p]= cGuess[n] + '0';
+                    if(solution[index2+1]=='x'){
+                        userGuess[++index3]= rightGuess[index1] + '0';
                         
-                        m++;
+                        index2++;
                     }
-                    else if(cCode[m+1]!='x'){
-                        p+=2;
-                        m+=2;
-                        sGuess[p]=cGuess[n] + '0';
+                    else if(solution[index2+1]!='x'){
+                        index3+=2;
+                        index2+=2;
+                        userGuess[index3]=rightGuess[index1] + '0';
                     }
                 }
             }
             
             else if(firstFind==true && secondFind==true && thirdFind==false){
                 if(correct==1){
-                    cCode[m++]=cGuess[n++] + '0';
+                    solution[index2++]=rightGuess[index1++] + '0';
                     
                     thirdFind=true;
-                    if(cCode[0]=='x'){
-                        m=p=0;
+                    if(solution[0]=='x'){
+                        index2=index3=0;
                     }
-                    else if(cCode[0]!='x' && cCode[1]=='x'){
-                        m=p=1;
+                    else if(solution[0]!='x' && solution[1]=='x'){
+                        index2=index3=1;
                     }
-                    else if(cCode[0]!='x' && cCode[1]!='x' && cCode[2]=='x'){
-                        m=p=2;
+                    else if(solution[0]!='x' && solution[1]!='x' && solution[2]=='x'){
+                        index2=index3=2;
                     }
-                    else if(cCode[0]!='x' && cCode[1]!='x' && cCode[2]!='x'){
-                        m=p=3;
+                    else if(solution[0]!='x' && solution[1]!='x' && solution[2]!='x'){
+                        index2=index3=3;
                     }
-                    sGuess[p] = cGuess[n] + '0';
+                    userGuess[index3] = rightGuess[index1] + '0';
                 }
                 
                 else if(correct==0){
-                    if(cCode[m+1]=='x'){
-                        m++;
-                        p++;
+                    if(solution[m+1]=='x'){
+                        index2++;
+                        index3++;
                     }
-                    else if(cCode[m+1]!='x' && cCode[m+2]=='x'){
-                        m+=2;
-                        p+=2;
+                    else if(solution[m+1]!='x' && solution[m+2]=='x'){
+                        index2+=2;
+                        index3+=2;
                     }
-                    else if(cCode[m+1]!='x' && cCode[m+2]!='x' && cCode[m+3]=='x'){
-                        m+=3;
-                        p+=3;
+                    else if(solution[m+1]!='x' && solution[m+2]!='x' && solution[m+3]=='x'){
+                        index2+=3;
+                        index3+=3;
                         
                     }
-                    sGuess[p]=cGuess[n] + '0';
+                    userGuess[index3]=rightGuess[index1] + '0';
                 }
                 if(thirdFind==true){
-                    //Find the last digit by finding the position that's not found within cCode
+                    //Find the last digit by finding the position that's not found within solution
                     for(int i=0;i<gSize;i++){
-                        if(cCode[i]=='x'){
-                            cCode[i] = cGuess[n] + '0';
-                            sGuess = cCode;
+                        if(solution[i]=='x'){
+                            solution[i] = rightGuess[index1] + '0';
+                            userGuess = solution;
                             break;
                         }
                     }
@@ -223,7 +223,7 @@ string compAI(char correct,char wrong){
             }
         }
     }
-    return sGuess;
+    return userGuess;
 }
 
 bool calculate(string code,string guess,char &correct,char &wrong){
